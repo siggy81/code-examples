@@ -1,3 +1,11 @@
+FROM openjdk:11-slim-buster as build                         
+COPY .mvn .mvn                                               
+COPY mvnw .                                                  
+COPY src src                                                 
+RUN ./mvnw -B package                                        
+
+
+
 FROM adoptopenjdk/openjdk11:alpine-jre
 RUN ./mvnw clean install
 RUN ./mvnw spring-boot:build-image
